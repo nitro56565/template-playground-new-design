@@ -3,10 +3,17 @@ import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import Editor from "@monaco-editor/react";
 import "../styles/components/MainContainer.css";
 
-const MainContainer = ( { showEditor, showConsole, showPreview, setShowEditor, setShowConsole, setShowPreview }: any) => {
-
+const MainContainer = ({
+  showEditor,
+  showConsole,
+  showPreview,
+  setShowEditor,
+  setShowConsole,
+  setShowPreview,
+}: any) => {
   // Check if only one panel is visible
-  const isOnlyOnePanelVisible = [showEditor, showConsole, showPreview].filter(Boolean).length === 1;
+  const isOnlyOnePanelVisible =
+    [showEditor, showConsole, showPreview].filter(Boolean).length === 1;
 
   return (
     <PanelGroup direction="horizontal" className="h-screen">
@@ -18,7 +25,6 @@ const MainContainer = ( { showEditor, showConsole, showPreview, setShowEditor, s
             <Panel defaultSize={70} minSize={30} className="bg-gray-100 p-2">
               <div className="flex justify-between items-center mb-2">
                 <h2 className="text-lg font-bold">Editor</h2>
-                {/* Conditionally render the close button if it's not the only panel */}
                 {!isOnlyOnePanelVisible && (
                   <button
                     onClick={() => setShowEditor(false)}
@@ -41,50 +47,43 @@ const MainContainer = ( { showEditor, showConsole, showPreview, setShowEditor, s
                   </button>
                 )}
               </div>
-              <Editor
-                height="90vh"
-                defaultLanguage="javascript"
-                defaultValue="const working = true;"
-              />
-            </Panel>
-          )}
 
-          {/* Resize Handle Between Editor and Console */}
-          {showEditor && showConsole && (
-            <PanelResizeHandle className="h-2 bg-gray-300" />
-          )}
+              {/* 3 Stacked Editors */}
+              <PanelGroup direction="vertical" className="h-[90vh]">
+                {/* Concerto Model Editor */}
+                <Panel defaultSize={33}>
+                  <div className="mb-1 font-medium text-sm text-gray-700">
+                    Concerto Model
+                  </div>
+                  <Editor
+                    height="100%"
+                    defaultLanguage="javascript"
+                    defaultValue="// Concerto model code here"
+                  />
+                </Panel>
+                <PanelResizeHandle className="h-1 bg-gray-300" />
 
-          {/* Console Panel */}
-          {showConsole && (
-            <Panel defaultSize={30} minSize={20} className="bg-gray-200 p-2">
-              <div className="flex justify-between items-center mb-2">
-                <h2 className="text-lg font-bold">Console</h2>
-                {/* Conditionally render the close button if it's not the only panel */}
-                {!isOnlyOnePanelVisible && (
-                  <button
-                    onClick={() => setShowConsole(false)}
-                    className="text-gray-500 hover:text-gray-800"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="size-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6 18 18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                )}
-              </div>
-              <div className="w-full h-full border bg-white p-2">
-                Console logs will appear here...
-              </div>
+                {/* TemplateMark Editor */}
+                <Panel defaultSize={33}>
+                  <div className="mb-1 font-medium text-sm text-gray-700">
+                    TemplateMark
+                  </div>
+                  <Editor
+                    height="100%"
+                    defaultLanguage="markdown"
+                    defaultValue="// TemplateMark template here"
+                  />
+                </Panel>
+                <PanelResizeHandle className="h-1 bg-gray-300" />
+
+                {/* JSON Data Editor */}
+                <Panel defaultSize={34}>
+                  <div className="mb-1 font-medium text-sm text-gray-700">
+                    JSON Data
+                  </div>
+                  <Editor height="100%" defaultLanguage="json" />
+                </Panel>
+              </PanelGroup>
             </Panel>
           )}
         </PanelGroup>

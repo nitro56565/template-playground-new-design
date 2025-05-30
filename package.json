@@ -13,7 +13,6 @@
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.1.5",
     "@monaco-editor/react": "^4.6.0",
-    "@uiw/react-codemirror": "^4.23.6",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.8.1",
@@ -22,7 +21,8 @@
     "react-dom": "^18.3.1",
     "react-resizable-panels": "^2.1.7",
     "react-router-dom": "^6.28.0",
-    "react-spring": "^9.7.4"
+    "react-spring": "^9.7.4",
+    "vite-plugin-chunk-split": "^0.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
